@@ -22,12 +22,12 @@ router.post('/login', function(req, res) {
 
         if (user) {
             if (passwordHash.verify(password, user.password)) {
-                res.send(JSON.stringify({success: true, message: 'Successful login'}));
+                res.send(JSON.stringify({result: 'success', message: 'Successful login', user: { name: username}}));
             } else {
-                res.send(JSON.stringify({success: false, message: 'Incorrect password'}));
+                res.send(JSON.stringify({result: 'error', message: 'Incorrect password'}));
             }
         } else {
-            res.send(JSON.stringify({success: false, message: 'User not found'}));
+            res.send(JSON.stringify({result: 'error', message: 'User not found'}));
         }
     });
 });
