@@ -12,6 +12,10 @@ var app = express();
 
 var dbConfig = require('./db-config');
 var db = require('./db');
+var cors = require('cors');
+
+app.use(cors());
+app.options('*', cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
