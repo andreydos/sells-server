@@ -22,7 +22,7 @@ router.post('/login', function(req, res) {
 
         if (user) {
             if (passwordHash.verify(password, user.password)) {
-                res.send(JSON.stringify({result: 'success', message: 'Successful login', user: { name: username}}));
+                res.send(JSON.stringify({result: 'success', message: 'Successful login', user: { name: username, id: user._id }}));
             } else {
                 res.send(JSON.stringify({result: 'error', message: 'Incorrect password'}));
             }
