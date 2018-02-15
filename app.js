@@ -11,7 +11,8 @@ var orders = require('./routes/orders');
 
 var app = express();
 
-var dbConfig = require('./db-config');
+var dbConfig = process.env.DB || require('./db-config').connectionString;
+
 var db = require('./db');
 var cors = require('cors');
 
@@ -35,7 +36,7 @@ app.use('/users', users);
 app.use('/orders', orders);
 
 // Connect to Mongo on start
-db.connect(process.env.DB || dbConfig.connectionString, function(err) {
+db.connect(dbConfig, function(err) {
     if (err) {
         console.log('Unable to connect to Mongo.');
         process.exit(1);
