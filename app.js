@@ -35,7 +35,7 @@ app.use('/users', users);
 app.use('/orders', orders);
 
 // Connect to Mongo on start
-db.connect(dbConfig.connectionString, function(err) {
+db.connect(process.env.DB || dbConfig.connectionString, function(err) {
     if (err) {
         console.log('Unable to connect to Mongo.');
         process.exit(1);
