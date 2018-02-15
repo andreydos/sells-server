@@ -19,8 +19,6 @@ router.post('/', function(req, res) {
     const orderData = req.body,
         collection = db.get().collection('orders');
 
-    console.log(orderData);
-
     // Insert user
     collection.insertOne(orderData)
         .then((doc)=>{
