@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var orders = require('./routes/orders');
+var clients = require('./routes/clients');
 
 var app = express();
 
@@ -34,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/orders', orders);
+app.use('/clients', clients);
 
 // Connect to Mongo on start
 db.connect(dbConfig, function(err) {
