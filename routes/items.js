@@ -4,38 +4,38 @@ const express = require('express'),
 const db = require('../db');
 
 router.get('/', function(req, res) {
-    const collection = db.get().collection('clients');
+    const collection = db.get().collection('items');
 
     collection.find().toArray(function(err, docs) {
         if (err) {
             res.send(JSON.stringify({result: 'error', message: 'Server error'}));
         }
 
-        res.send(JSON.stringify({result: 'success', message: 'Successfully load clients', clients: docs}));
+        res.send(JSON.stringify({result: 'success', message: 'Successfully load items', items: docs}));
     });
 });
 
 router.post('/', function(req, res) {
-    const clientData = req.body,
-        collection = db.get().collection('clients');
+    const itemData = req.body,
+        collection = db.get().collection('items');
 
     // Insert user
-    collection.insertOne(clientData)
+    collection.insertOne(itemData)
         .then((doc)=>{
-            console.log("Inserted new client into the collection");
+            console.log("Inserted new order into the collection");
             res.send(
                 JSON.stringify({result: 'success',
-                    message: 'Successfully saved new client',
+                    message: 'Successfully saved new order',
                     type: 'success',
-                    dbClientId: doc.insertedId})
+                    dbItemId: doc.insertedId})
             );
         })
         .catch(()=>{
-            console.log("Error when add the client to db");
+            console.log("Error when add the order to db");
 
             res.send(
                 JSON.stringify({result: 'error',
-                    message: 'Error when add the client to db',
+                    message: 'Error when add the order to db',
                     type: 'warn'})
             );
         });
