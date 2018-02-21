@@ -1,7 +1,7 @@
 const express = require('express'),
-    router = express.Router();
-
-const db = require('../db');
+    router = express.Router(),
+    {ObjectId} = require('mongodb'),
+    db = require('../db');
 
 router.get('/', function(req, res) {
     const collection = db.get().collection('items');
@@ -36,6 +36,28 @@ router.post('/', function(req, res) {
             res.send(
                 JSON.stringify({result: 'error',
                     message: 'Error when add the order to db',
+                    type: 'warn'})
+            );
+        });
+});
+
+router.get('/delete/:id*', function(req, res) {
+    const id = ObjectId(req.params.id),
+        collection = db.get().collection('items');
+
+    collection.remove( {"_id": id} )
+        .then(() => {
+            res.send(
+                JSON.stringify({
+                    message: 'Successfully removed item',
+                    type: 'info'})
+            );
+        })
+        .catch((e)=> {
+            console.log(e);
+            res.send(
+                JSON.stringify({
+                    message: 'Error when remove the item from db',
                     type: 'warn'})
             );
         });
