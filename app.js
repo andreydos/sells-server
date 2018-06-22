@@ -1,22 +1,22 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
-var orders = require('./routes/orders');
-var clients = require('./routes/clients');
-var items = require('./routes/items');
+const index = require('./routes/index');
+const users = require('./routes/users');
+const orders = require('./routes/orders');
+const clients = require('./routes/clients');
+const items = require('./routes/items');
 
-var app = express();
+const app = express();
 
-var dbConfig = process.env.DB || require('./db-config').connectionString;
+const dbConfig = process.env.DB || require('./db-config').connectionString;
 
-var db = require('./db');
-var cors = require('cors');
+const db = require('./db');
+const cors = require('cors');
 
 app.use(cors());
 app.options('*', cors());
@@ -49,7 +49,7 @@ db.connect(dbConfig, function(err) {
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
