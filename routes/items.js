@@ -3,15 +3,20 @@ const express = require('express'),
     {ObjectId} = require('mongodb'),
     db = require('../db');
 
-router.get('/', function(req, res) {
-    const collection = db.get().collection('items');
+router.get('/get/:id*', function(req, res) {
+    const collection = db.get().collection('items'),
+        userId = req.params.id;
 
     collection.find().toArray(function(err, docs) {
         if (err) {
             res.send(JSON.stringify({result: 'error', message: 'Server error'}));
         }
 
-        res.send(JSON.stringify({result: 'success', message: 'Successfully load items', items: docs}));
+        const filtered = docs.filter((doc) => {
+            return userId === doc.userId;
+        });
+
+        res.send(JSON.stringify({result: 'success', message: 'Successfully load items', items: filtered}));
     });
 });
 
@@ -42,6 +47,7 @@ router.post('/', function(req, res) {
 });
 
 router.get('/delete/:id*', function(req, res) {
+    console.log("collection");
     const id = ObjectId(req.params.id),
         collection = db.get().collection('items');
 
