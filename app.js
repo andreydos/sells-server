@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 const index = require('./routes/index');
+const login = require('./routes/login');
 const users = require('./routes/users');
 const orders = require('./routes/orders');
 const clients = require('./routes/clients');
@@ -34,10 +35,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
-app.use('/orders', orders);
-app.use('/clients', clients);
-app.use('/items', items);
+app.use('/api/login', login);
+app.use('/api/users', users);
+app.use('/api/orders', orders);
+app.use('/api/clients', clients);
+app.use('/api/items', items);
 
 // Connect to Mongo on start
 db.connect(dbConfig, function(err) {
